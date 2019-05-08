@@ -5,13 +5,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    province:"",
+    address:"",
     city:""
   },
   getters:{
-    address(state){
-      return state.province + state.city;
-    }
   },
   mutations: {
 

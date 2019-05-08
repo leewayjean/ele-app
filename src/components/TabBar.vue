@@ -1,7 +1,7 @@
 <template>
   <div class="tabbar">
     <div class="btn-group">
-      <router-link class="btn-item-group" tag="div" to="/goods">
+      <router-link class="btn-item-group" tag="div" to="/home">
         <span class="icon">
           <i class="iconfont iconwarehouse-delivery"></i>
         </span>
@@ -28,7 +28,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props:{
+    
+  }
+};
 </script>
 <style scoped>
 @import url("../../public/css/iconfont/iconfont.css");

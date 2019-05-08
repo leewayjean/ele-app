@@ -2,70 +2,77 @@
   <div class="address">
     <Header class="header"/>
     <!-- 搜索城市列表 -->
-      <div ref="scrollWrapper" class="outWrapper">
-        <div class="scroll-wrapper">
-          <div class="search-wrappper">
-            <!-- 输入部分-->
-            <div class="input-wrapper">
-              <!-- 选择城市按钮 -->
-              <span class="city" @click="$router.push('/citysList')">
-                {{city}}
-                <i class="iconfont iconxiangxiajiantou"></i>
-              </span>
-              <!-- 输入框 -->
-              <div class="search-input">
-                <i class="iconfont iconsousuo"></i>
-                <input type="text" placeholder="小区/写字楼/学校等" v-model="searchContent">
-              </div>
+    <div ref="scrollWrapper" class="outWrapper">
+      <div class="scroll-wrapper">
+        <div class="search-wrappper">
+          <!-- 输入部分-->
+          <div class="input-wrapper">
+            <!-- 选择城市按钮 -->
+            <span class="city" @click="$router.push('/citysList')">
+              {{city}}
+              <i class="iconfont iconxiangxiajiantou"></i>
+            </span>
+            <!-- 输入框 -->
+            <div class="search-input">
+              <i class="iconfont iconsousuo"></i>
+              <input type="text" placeholder="小区/写字楼/学校等" v-model="searchContent">
             </div>
-            <!-- 提示当前定位 -->
-            <p class="tip">当前定位</p>
-            <!-- 当前位置信息 -->
-            <p class="location-text">
-              <i class="iconfont icondizhi"></i>
-              {{address}}
-            </p>
           </div>
-          <!-- 关键词推荐 -->
-          <ul class="city-list">
-            <li class="list-item" v-for="(city,index) in citys" :key="index" @click="selectCity(city)">
-              <h4>{{city.name}}</h4>
-              <p>{{city.district+ city.address}}</p>
-            </li>
-          </ul>
+          <!-- 当前位置信息 -->
+          <Location :address="address"/>
         </div>
+        <!-- 关键词推荐 -->
+        <ul class="city-list">
+          <li
+            class="list-item"
+            v-for="(city,index) in locationLists"
+            :key="index"
+            @click="selectCity(city)"
+          >
+            <h4>{{city.name}}</h4>
+            <p>{{city.district+ city.address}}</p>
+          </li>
+        </ul>
       </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Header from "../components/Header.vue";
+import Location from "../components/Location.vue"
 import BScroll from "better-scroll";
 export default {
   data() {
     return {
-      searchContent: "",
-      City: "",
-      citys: []
+      searchContent: "", //输入内容
+      localCity: "",//当前城市定位
+      locationLists: [] // 地址列表
     };
   },
+  created() {
+    this.$nextTick(function() {
+      this._initBScroll();
+    });
+  },
   components: {
-    Header
+    Header,
+    Location
   },
   computed: {
     city() {
       var city = this.$store.state.city;
-      this.City = city;
+      this.localCity = city;
       return city;
     },
     address() {
-      return this.$store.getters.address;
+      return this.$store.state.address;
     }
   },
   watch: {
     searchContent() {
       var _this = this;
-      _this.showPlace();
+      _this.showCities();
     }
   },
   methods: {
@@ -74,31 +81,29 @@ export default {
         click: true
       });
     },
-    showPlace() {
+    showCities() {
       var _this = this;
       AMap.plugin("AMap.Autocomplete", function() {
         // 实例化Autocomplete
         var autoOptions = {
           //city 限定城市，默认全国
-          city: _this.city
+          city: _this.localCity
         };
         var autoComplete = new AMap.Autocomplete(autoOptions);
         autoComplete.search(_this.searchContent, function(status, result) {
           // 搜索成功时，result即是对应的匹配数据
-          _this.citys = result.tips;
+          _this.locationLists = result.tips;
+          console.log(result)
         });
       });
     },
-    selectCity(city){
-      this.$store.state.city = city.district;
-      this.$router.push("/")
+    selectCity(city) {
+      console.log(city);
+      this.$store.state.address =city.district + city.name;
+      this.$router.push("/");
     }
   },
-  created() {
-    this.$nextTick(function() {
-      this._initBScroll();
-    });
-  }
+  
 };
 </script>
 <style scoped>
@@ -162,6 +167,11 @@ export default {
   font-size: 14px;
   color: #000;
   font-weight: bold;
+  /* 超出省略 */
+  max-width: 25em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 /* 地址图标样式 */
 .location-text .icondizhi {
@@ -188,12 +198,11 @@ export default {
   color: #666;
 }
 .outWrapper {
-    width: 100%;
-    height: calc(100% - 45px);
-    position: relative;;
-    top:45px;
+  width: 100%;
+  height: calc(100% - 45px);
+  position: relative;
+  top: 45px;
 }
-
 </style>
 
 

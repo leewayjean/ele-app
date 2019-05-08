@@ -12,13 +12,13 @@ const router =  new Router({
       path: '/',
       name: 'index',
       component: () => import("./views/Index.vue"),
-      redirect:"/goods",
+      redirect:"/home",
       children:[
-        {path:"/goods",component:() => import("./views/page/Goods.vue")},
+        {path:"/home",component:() => import("./views/page/Home.vue")},
         {path:"/order",component:() => import("./views/page/Order.vue")},
         {path:"/me",component:() => import("./views/page/Me.vue")},
         {path:"/address",component:() => import("./views/Address.vue")},
-        {path:"/citysList",component:() => import("./views/Citys.vue")}
+        {path:"/citysList",component:() => import("./views/Cities.vue")}
       ]
     },
     {

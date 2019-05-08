@@ -10,7 +10,7 @@
 export default {
     methods:{
         goToIndex(){
-            this.$router.push("/goods")
+            this.$router.push("/home")
         }
     }
 };
