@@ -1,5 +1,5 @@
 <template>
-  <div class="location">
+  <div class="location" @click="$router.push('/home')">
     <!-- 提示当前定位 -->
     <p class="tip">当前定位</p>
     <!-- 当前位置信息 -->

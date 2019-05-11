@@ -1,6 +1,6 @@
 <template>
   <div class="address">
-    <Header class="header"/>
+    <Header/>
     <!-- 搜索城市列表 -->
     <div ref="scrollWrapper" class="outWrapper">
       <div class="scroll-wrapper">
@@ -93,12 +93,10 @@ export default {
         autoComplete.search(_this.searchContent, function(status, result) {
           // 搜索成功时，result即是对应的匹配数据
           _this.locationLists = result.tips;
-          console.log(result)
         });
       });
     },
     selectCity(city) {
-      console.log(city);
       this.$store.state.address =city.district + city.name;
       this.$router.push("/");
     }
@@ -110,10 +108,6 @@ export default {
 .address {
   font-size: 14px;
   background: #f5f5f5;
-}
-.header {
-  position: absolute;
-  z-index: 999;
 }
 .search-wrappper {
   height: 108px;
@@ -200,8 +194,7 @@ export default {
 .outWrapper {
   width: 100%;
   height: calc(100% - 45px);
-  position: relative;
-  top: 45px;
+  overflow: hidden;
 }
 </style>
 
