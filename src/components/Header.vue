@@ -1,9 +1,9 @@
 <template>
-  <div class="header">
+  <header class="header">
     <i class="iconfont iconxiangzuojiantou" @click="goToIndex">返回</i>
     <p>选择收货地址</p>
     <i></i>
-  </div>
+  </header>
 </template>
 
 <script>

@@ -2,7 +2,7 @@
   <div class="address">
     <Header/>
     <!-- 搜索城市列表 -->
-    <div ref="scrollWrapper" class="outWrapper">
+    <main ref="scrollWrapper" class="outWrapper">
       <div class="scroll-wrapper">
         <div class="search-wrappper">
           <!-- 输入部分-->
@@ -22,7 +22,7 @@
           <Location :address="address"/>
         </div>
         <!-- 关键词推荐 -->
-        <ul class="city-list">
+        <ul class="city-list" v-if="locationLists.length>0">
           <li
             class="list-item"
             v-for="(city,index) in locationLists"
@@ -34,7 +34,7 @@
           </li>
         </ul>
       </div>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -107,7 +107,7 @@ export default {
 <style scoped>
 .address {
   font-size: 14px;
-  background: #f5f5f5;
+  background: #f1f1f1;
 }
 .search-wrappper {
   height: 108px;

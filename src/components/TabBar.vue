@@ -1,5 +1,5 @@
 <template>
-  <div class="tabbar">
+  <footer class="tabbar">
     <div class="btn-group">
       <router-link class="btn-item-group" tag="div" to="/home">
         <span class="icon">
@@ -24,7 +24,7 @@
         <p class="btn-title">我的</p>
       </router-link>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script>

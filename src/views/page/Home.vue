@@ -1,7 +1,7 @@
 <template>
-  <div class="goods">
+  <div class="home">
     <!-- 头部 -->
-    <div class="header">
+    <header class="header">
       <router-link class="address" tag="div" to="/address">
         <i class="iconfont iconshouhuodizhi"></i>
         <span class="address-text">{{address}}</span>
@@ -11,7 +11,7 @@
         <i class="iconfont iconsousuo"></i>
         <span>搜索商家&nbsp;商家名称</span>
       </div>
-    </div>
+    </header>
   </div>
 </template>
 <script>
