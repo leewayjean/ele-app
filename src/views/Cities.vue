@@ -1,18 +1,22 @@
 <template>
   <div class="cities">
+    <!-- 顶部搜索区 -->
     <div class="search-cities">
       <div class="form-group">
+        <!-- 输入框 -->
         <p class="search-input-group">
           <i class="iconfont iconsousuo"></i>
-          <input type="text" class="search-input" placeholder="输入城市名">
+          <input type="text" class="search-input" placeholder="输入城市名" v-model="searchCity">
         </p>
+        <!-- 取消按钮 -->
         <span class="search-btn" @click="$router.go(-1)">取消</span>
       </div>
+      <!-- 当前位置 -->
       <Location :address="address"/>
     </div>
-    <keep-alive>
-      <div class="city-list" ref="cities" v-if="cities">
-        <ul class="cities-wrapper">
+      <div class="city-list" ref="cities" v-show="cities">
+        <!-- 全国城市列表 -->
+        <ul class="cities-wrapper" v-if="searchCitiesList.length == 0">
           <li v-for="(value,key,index) in cities" :key="index" ref="item">
             <h3 class="city-title">{{key}}</h3>
             <ul>
@@ -24,11 +28,20 @@
               >{{item.name}}</li>
             </ul>
           </li>
+          <p class="tip">我也是有底线滴~</p>
+        </ul>
+        <!-- 检索的城市列表 -->
+        <ul class="searchCities-list" v-else>
+          <li class="city-item" 
+          v-for="(city,index) in searchCitiesList" 
+          @click="selectCity(city)"
+          :key="index">
+            {{city}}
+          </li>
         </ul>
       </div>
-    </keep-alive>
-
-    <ul class="sideBar">
+      <!-- 侧边导航栏 -->
+    <ul class="sideBar" v-if="searchCitiesList.length<1">
       <li v-for="(key,index) in keys" @click="scrollTo(index)" :key="index">{{key}}</li>
     </ul>
   </div>
@@ -40,11 +53,20 @@ export default {
   name: "cities",
   data() {
     return {
-      cities: {}, //全国城市，已经按key值排序
+      cities: null, //全国城市，已经按key值排序
       allCities: [], // 所有的城市，没有key
       keys: [], // #,A到Z字母排序,
-      BScroll: {} //better-scroll 实例
+      BScroll: {}, //better-scroll 实例
+      searchCity:"",
+      searchCitiesList:[],//检索的城市列表
     };
+  },
+  watch:{
+    searchCity(){
+      this.searchCitiesList = this.allCities.filter((city) => {
+        return city.indexOf(this.searchCity) !== -1;
+      })
+    }
   },
   computed: {
     address() {
@@ -82,7 +104,7 @@ export default {
         this.cities = newCities;
         keys.forEach(key => {
           res.data[key].forEach(item => {
-            this.allCities.push(item); //全国城市数组
+            this.allCities.push(item.name); //全国城市数组
           });
         });
       });
@@ -120,7 +142,7 @@ export default {
   background: #f1f1f1;
 }
 .search-cities {
-  padding: 8px 16px;
+  padding: 12px 16px;
   background: #fff;
 }
 .form-group {
@@ -146,6 +168,7 @@ export default {
   text-indent: 0.5em;
 }
 .search-btn {
+  font-size: 12px;
   display: inline-block;
   margin-left: 10px;
   height: 40px;
@@ -181,6 +204,7 @@ export default {
   width: 30%;
   box-sizing: border-box;
   text-align: center;
+  border-radius: 4px;
   background: #f1f1f1;
   margin: 0 10px 10px 0;
 }
@@ -194,6 +218,12 @@ export default {
   text-align: center;
   font-size: 12px;
   color: #aaa;
+}
+.tip {
+  font-size: 12px;
+  color:#aaa;
+  text-align: center;
+  padding:15px 0;
 }
 </style>
 
