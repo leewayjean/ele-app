@@ -37,6 +37,9 @@ export default {
 <style scoped>
 @import url("../../public/css/iconfont/iconfont.css");
 .tabbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   height: 45px;
   background:#fff;
   border:1px solid #eee;

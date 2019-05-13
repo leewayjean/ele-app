@@ -106,6 +106,7 @@ export default {
 </script>
 <style scoped>
 .address {
+  height: 100%;
   font-size: 14px;
   background: #f1f1f1;
 }
@@ -193,7 +194,7 @@ export default {
 }
 .outWrapper {
   width: 100%;
-  height: calc(100% - 45px);
+  height: calc(100% - 90px);
   overflow: hidden;
 }
 </style>

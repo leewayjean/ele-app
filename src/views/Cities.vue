@@ -138,7 +138,7 @@ export default {
 
 <style scoped>
 .cities {
-  height: calc(100% -45px);
+  height:100%;
   background: #f1f1f1;
 }
 .search-cities {
@@ -179,7 +179,7 @@ export default {
 /* 城市列表 */
 
 .city-list {
-  height: 77%;
+  height:calc(100% - 198px);
   background: #fff;
   margin-top: 10px;
   padding: 16px;
@@ -215,6 +215,7 @@ export default {
   top: 25%;
 }
 .sideBar li {
+  line-height: 1.2em;
   text-align: center;
   font-size: 12px;
   color: #aaa;
