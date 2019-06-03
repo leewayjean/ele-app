@@ -194,7 +194,7 @@ export default {
 }
 .outWrapper {
   width: 100%;
-  height: calc(100% - 90px);
+  height: calc(100% - 45px);
   overflow: hidden;
 }
 </style>

@@ -179,7 +179,7 @@ export default {
 /* 城市列表 */
 
 .city-list {
-  height:calc(100% - 198px);
+  height:calc(100% - 153px);
   background: #fff;
   margin-top: 10px;
   padding: 16px;

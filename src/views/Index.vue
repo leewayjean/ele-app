@@ -18,7 +18,7 @@ export default {
 <style scoped>
 .index {
   width: 100%;
-  height: 100%;
+  height:calc(100% - 45px);
   background: #f1f1f1;
 }
 </style>
